@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-db/tarantool >=dev-vcs/git-1.8.2.1
+DESCRIPTION=Expiration daemon module for Tarantool
+EAPI=6
+HOMEPAGE=https://github.com/tarantool/expirationd
+LICENSE=BSD-2
+RDEPEND=dev-db/tarantool
+RESTRICT=mirror
+SLOT=0
+_eclass_exported_funcs=src_unpack:git-r3 src_install:-
+_eclasses_=git-r3	cbafa3261c37c7e3af44bb16a34ea390
+_md5_=28d2571bb422ea3cf96dbcf4e1e8d854
