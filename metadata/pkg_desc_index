@@ -1,4 +1,4 @@
-dev-db/tarantool 1.7.1.282 1.7.1.446: Tarantool - an efficient, extensible in-memory data store.
+dev-db/tarantool 1.7.1.282 1.7.1.446 1.7.3.0 9999: Tarantool - an efficient, extensible in-memory data store.
 dev-libs/msgpuck 1.1.3 9999: A simple and efficient MsgPack binary serialization library in a self-contained header file
 dev-lua/avro-schema 2.0 9999: Apache Avro schema tools for Tarantool
 dev-lua/curl 2.2.7 9999: Curl bindings for Tarantool
