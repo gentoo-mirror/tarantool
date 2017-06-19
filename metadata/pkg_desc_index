@@ -1,7 +1,9 @@
 dev-db/tarantool 1.7.1.282 1.7.1.446 1.7.3.0 1.7.4.0 1.8.1.1 9999: Tarantool - an efficient, extensible in-memory data store.
 dev-libs/msgpuck 1.1.3 2.0 9999: A simple and efficient MsgPack binary serialization library in a self-contained header file
 dev-lua/avro-schema 2.0 9999: Apache Avro schema tools for Tarantool
+dev-lua/connpool 1.1 9999: Lua connection pool for tarantool net.box
 dev-lua/curl 2.2.7 9999: Curl bindings for Tarantool
 dev-lua/expirationd 1.0 9999: Expiration daemon module for Tarantool
 dev-lua/queue 9999: Create task queues, add and take jobs, monitor failed tasks
+dev-lua/shard 9999: Automatic sharding and resharding
 www-servers/nginx 1.11.10: Robust, small and high performance http and reverse proxy server

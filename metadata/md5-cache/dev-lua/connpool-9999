@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-db/tarantool >=dev-vcs/git-1.8.2.1
+DESCRIPTION=Lua connection pool for tarantool net.box
+EAPI=6
+HOMEPAGE=https://github.com/tarantool/connpool
+LICENSE=BSD-2
+RDEPEND=dev-db/tarantool
+RESTRICT=mirror
+SLOT=0
+_eclass_exported_funcs=src_unpack:git-r3 src_install:-
+_eclasses_=git-r3	cbafa3261c37c7e3af44bb16a34ea390
+_md5_=5c52859cb6454a66e9d106c82ebe9bdd
