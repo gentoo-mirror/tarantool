@@ -7,4 +7,4 @@ dev-lua/expirationd 1.0 9999: Expiration daemon module for Tarantool
 dev-lua/mysql 9999: MySQL connector for Tarantool
 dev-lua/queue 9999: Create task queues, add and take jobs, monitor failed tasks
 dev-lua/shard 9999: Automatic sharding and resharding
-www-servers/nginx 1.11.10: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.13.3: Robust, small and high performance http and reverse proxy server
