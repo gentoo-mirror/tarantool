@@ -4,6 +4,7 @@ dev-lua/avro-schema 2.0 9999: Apache Avro schema tools for Tarantool
 dev-lua/connpool 1.1 9999: Lua connection pool for tarantool net.box
 dev-lua/curl 2.2.7 9999: Curl bindings for Tarantool
 dev-lua/expirationd 1.0 9999: Expiration daemon module for Tarantool
+dev-lua/http 9999: HTTP server for Tarantool
 dev-lua/mysql 9999: MySQL connector for Tarantool
 dev-lua/queue 9999: Create task queues, add and take jobs, monitor failed tasks
 dev-lua/shard 9999: Automatic sharding and resharding
