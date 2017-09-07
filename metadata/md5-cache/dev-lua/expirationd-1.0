@@ -9,5 +9,4 @@ RDEPEND=dev-db/tarantool
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/tarantool/expirationd/archive/1.0.tar.gz -> expirationd-1.0.tar.gz
-_eclass_exported_funcs=src_install:-
 _md5_=28d2571bb422ea3cf96dbcf4e1e8d854
