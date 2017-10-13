@@ -8,4 +8,5 @@ dev-lua/http 9999: HTTP server for Tarantool
 dev-lua/mysql 9999: MySQL connector for Tarantool
 dev-lua/queue 9999: Create task queues, add and take jobs, monitor failed tasks
 dev-lua/shard 9999: Automatic sharding and resharding
+dev-lua/smtp 9999: SMTP support for Tarantool
 www-servers/nginx 1.13.3 1.13.5: Robust, small and high performance http and reverse proxy server
