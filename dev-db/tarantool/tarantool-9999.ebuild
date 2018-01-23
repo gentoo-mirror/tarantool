@@ -35,6 +35,7 @@ RDEPEND="
 	sys-libs/ncurses:0
 	dev-libs/libyaml
 	system-zstd? ( app-arch/zstd )
+	dev-libs/icu
 "
 
 DEPEND="
@@ -84,7 +85,7 @@ src_configure() {
 	if use debug; then
 		export CMAKE_BUILD_TYPE=Debug
 	else
-		export CMAKE_BUILD_TYPE=RelWithDebugInfo
+		export CMAKE_BUILD_TYPE=RelWithDebInfo
 	fi
 
 	local mycmakeargs=(
