@@ -1,0 +1,12 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install unpack
+DEPEND=dev-db/tarantool
+DESCRIPTION=Lua bindings for Google Performance Tools CPU Profiler
+EAPI=7
+HOMEPAGE=https://github.com/tarantool/gperftools
+LICENSE=BSD-2
+RDEPEND=dev-db/tarantool dev-util/google-perftools
+RESTRICT=mirror
+SLOT=0
+_eclasses_=git-r3	0d4635eeb5a96cd5315597a47eba25c9
+_md5_=143d9a9e831280abccd8287149ce7751
