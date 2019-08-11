@@ -2,6 +2,9 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
+dev-db/tarantool:backtrace - Support for detail backtraces
+dev-db/tarantool:gcov - Build with coverage support
+dev-db/tarantool:gprof - Build with profiling support
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
