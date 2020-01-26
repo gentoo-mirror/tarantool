@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-db/tarantool >=dev-vcs/git-1.8.2.1[curl]
+DESCRIPTION=Easy, terse, readable and fast function arguments type checking
+EAPI=6
+HOMEPAGE=https://github.com/tarantool/checks
+LICENSE=BSD-2
+PROPERTIES=live
+RDEPEND=dev-db/tarantool
+RESTRICT=mirror
+SLOT=0
+_eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33
+_md5_=f9308f48076716d941da943da1ffaf7a
