@@ -9,4 +9,4 @@ RDEPEND=dev-db/tarantool
 RESTRICT=mirror
 SLOT=0
 _eclasses_=git-r3	809e27702c573cbba31c08ed00bbad33
-_md5_=28d2571bb422ea3cf96dbcf4e1e8d854
+_md5_=f8a335c8fdb36093cd7439cc00070f77
