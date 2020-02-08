@@ -1,5 +1,6 @@
 dev-db/tarantool 1.10.3.1 1.10.3.33 1.10.4.1 1.10.5.1 2.1.2.52 2.2.1.1 2.2.2.1 2.3.1.1 9999: Tarantool - an efficient, extensible in-memory data store.
-dev-libs/msgpuck 1.1.3 2.0 9999: A simple and efficient MsgPack binary serialization library in a self-contained header file
+dev-libs/msgpuck 2.0 9999: Lightweight MessagePack library
+dev-libs/tarantool-c 9999: 
 dev-lua/avro-schema 2.0 2.2.3 2.3.0 2.3.1 2.3.2 3.0.0 3.0.3 3.0.4 9999: Apache Avro schema tools for Tarantool
 dev-lua/checks 3.0.1 9999: Easy, terse, readable and fast function arguments type checking
 dev-lua/connpool 1.1 9999: Lua connection pool for tarantool net.box
