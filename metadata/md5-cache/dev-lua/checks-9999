@@ -3,10 +3,11 @@ DEPEND=dev-db/tarantool >=dev-vcs/git-1.8.2.1[curl]
 DESCRIPTION=Easy, terse, readable and fast function arguments type checking
 EAPI=6
 HOMEPAGE=https://github.com/tarantool/checks
+INHERIT=git-r3
 LICENSE=BSD-2
 PROPERTIES=live
 RDEPEND=dev-db/tarantool
 RESTRICT=mirror
 SLOT=0
-_eclasses_=git-r3	3e7ec3d6619213460c85e2aa48398441
+_eclasses_=git-r3	b8e8c92aa5fe8df7187e466138eb4e52
 _md5_=549aa68b8fce03cf9a869c97aaf026d9
