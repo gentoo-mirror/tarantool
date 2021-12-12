@@ -6,25 +6,32 @@ EAPI=6
 
 CMAKE_MIN_VERSION=2.6
 
-inherit cmake-utils eutils user versionator tmpfiles
+inherit cmake-utils user versionator tmpfiles
 
-# Major versions: 1, 2.
 MAJORV=$(get_version_component_range 1)
-# Minor versions: 0 (alpha), 1 (beta), 2-9 (stable), 10 (LTS).
 MINORV=$(get_version_component_range 2)
-# Buckets: 1.9, 1.10, 2x (alpha and beta), 2.[2-9] (stable), 2.10 (LTS).
-case $MINORV in
-[01])
-	# Alpha and beta.
-	BUCKET="${MAJORV}x"
-	;;
-*)
-	# Stable and LTS.
-	BUCKET="${MAJORV}.${MINORV}"
-	;;
-esac
-# Releases: 1.9, 1.10, 2.0, 2.1.
-RELEASE=$(get_version_component_range 1-2)
+
+# Version enumeration policy and source tarballs layout were
+# changed, handle it.
+#
+# https://github.com/tarantool/tarantool/discussions/6182
+if [ "${PV}" = 9999 ]; then
+	inherit git-r3
+	KEYWORDS=""
+	SERIES="9999"
+	EGIT_REPO_URI="https://github.com/tarantool/${PN}"
+elif [ "${MAJORV}" = 1 ] || ([ "${MAJORV}" = 2 ] && [ "${MINORV}" -lt 10 ]); then
+	# Old release policy.
+	KEYWORDS="~amd64 ~x86"
+	SERIES="${MAJORV}.${MINORV}"
+	SRC_URI="https://download.tarantool.org/tarantool/${SERIES}/src/${P}.tar.gz"
+else
+	# New release policy.
+	KEYWORDS="~amd64 ~x86 ~arm64"
+	SERIES="${MAJORV}"
+	SRC_URI="https://download.tarantool.org/tarantool/src/${P/_/-}.tar.gz"
+	S="${WORKDIR}/${P/_/-}"
+fi
 
 DESCRIPTION="Tarantool - an efficient, extensible in-memory data store."
 HOMEPAGE="https://tarantool.org"
@@ -34,25 +41,14 @@ IUSE="
 	cpu_flags_x86_avx
 "
 
-if [[ ${PV} == 9999 ]]; then
-	inherit git-r3
-	KEYWORDS=""
-	EGIT_REPO_URI="https://github.com/tarantool/$PN"
-else
-	KEYWORDS="~amd64 ~x86"
-	SRC_URI="https://download.tarantool.org/tarantool/${BUCKET}/src/${P}.tar.gz"
-fi
 RESTRICT="mirror"
-
-SLOT="0/${RELEASE}"
+SLOT="0/${SERIES}"
 LICENSE="BSD-2"
-KEYWORDS="~x86 ~amd64 ~x64-macos"
 
 RDEPEND="
-	!x64-macos? ( sys-libs/libunwind )
+	sys-libs/libunwind
 	sys-libs/readline:0
 	sys-libs/ncurses:0
-	dev-libs/libyaml
 	system-libcurl? ( >=net-misc/curl-7.65.3 )
 	system-libyaml? ( >=dev-libs/libyaml-0.2.2 )
 	system-zstd? ( app-arch/zstd )
@@ -61,13 +57,11 @@ RDEPEND="
 
 DEPEND="
 	${RDEPEND}
-	|| ( >=sys-devel/gcc-4.5[cxx]  >=sys-devel/clang-3.2 )
-	test? ( dev-python/python-daemon dev-python/pyyaml dev-python/pexpect )
+	test? ( dev-python/gevent dev-python/pyyaml )
 "
 
 REQUIRED_USE="
 	cpu_flags_x86_avx? ( cpu_flags_x86_sse2 )
-	x64-macos? ( !backtrace )
 "
 
 TARANTOOL_HOME="/var/lib/tarantool"
@@ -76,15 +70,6 @@ TARANTOOL_USER=tarantool
 TARANTOOL_GROUP=tarantool
 
 pkg_pretend() {
-	# clang is not sloted at this moment, we are ok with any installed one.
-	if [[ $(tc-getCC) == clang ]]; then
-		:
-	elif [[ $(gcc-major-version) -lt 4 ]] || {
-		[[ $(gcc-major-version) -eq 4 && $(gcc-minor-version) -lt 5 ]]; } then
-		 eerror "Compilation with gcc older than 4.5 is not supported"
-		 die "Too old gcc found."
-	fi
-
 	if ! use system-libcurl && ! ( \
 			([[ ${PV} =~ ^1.* ]] && version_is_at_least 1.10.3.120) || \
 			([[ ${PV} =~ ^2.1.* ]] && version_is_at_least 2.1.2.155) || \
@@ -105,23 +90,43 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if ! use feedback-daemon && ( \
+	# -DENABLE_FEEDBACK_DAEMON=OFF does the job, but it is
+	# available only since 2.4.0.231 (see [1]).
+	#
+	# [1]: https://github.com/tarantool/tarantool/issues/3308
+	if ! use feedback-daemon && ! version_is_at_least 2.4.0.231 && ( \
 			([[ ${PV} =~ ^1.* ]] && version_is_at_least 1.10.0.28) || \
-			([[ ${PV} =~ ^2.* ]] && version_is_at_least 2.0.4.163) || \
-			[[ ${PV} == 9999 ]]); then
-		# revert 2ae373ae741dcf975c5d176316d8290c962446ba in more or less
-		# robust way; until [1] is not fixed
-		# [1]: https://github.com/tarantool/tarantool/issues/3308
+			([[ ${PV} =~ ^2.* ]] && version_is_at_least 2.0.4.163)); then
+		# Revert 2ae373ae741dcf975c5d176316d8290c962446ba.
+		#
+		# Applying a patch would fail due to differences across
+		# versions, so going to the bad (but robust) way.
 		local comment='disabled by USE=-feedback-daemon'
+
 		sed -e 's@^\s*lua_source(lua_sources lua/feedback_daemon\.lua)$@# \0 # '"${comment}@" \
-			-i src/box/CMakeLists.txt || die "sed feedback-daemon 1"
+			-i src/box/CMakeLists.txt
+		[ "$(grep "${comment}" src/box/CMakeLists.txt | wc -l)" = 1 ] || \
+			die "sed out feedback-daemon from src/box/CMakeLists.txt"
+
 		sed -e 's@^\s*feedback_daemon_lua\[\],$@// \0 // '"${comment}@" \
 			-e 's@^\s*"box/feedback_daemon", feedback_daemon_lua,@// \0 // '"${comment}@" \
-			-i src/box/lua/init.c || die "sed feedback-daemon 2"
+			-i src/box/lua/init.c
+		[ "$(grep "${comment}" src/box/lua/init.c | wc -l)" = 2 ] || \
+			die "sed out feedback-daemon from src/box/lua/init.c"
+
+		# Comment out feedback_* fields in default_cfg,
+		# template_cfg, dynamic_cfg tables.
+		#
+		# feedback_crashinfo appears since 2.7.0.154, but we use
+		# -DENABLE_FEEDBACK_DAEMON=OFF CMake flag since 2.4.0.231.
+		# Ignore it so.
 		sed -e 's@^\s*feedback_enabled *=.*$@-- \0 -- '"${comment}@" \
 			-e 's@^\s*feedback_host *=.*$@-- \0 -- '"${comment}@" \
 			-e 's@^\s*feedback_interval *=.*$@-- \0 -- '"${comment}@" \
-			-i src/box/lua/load_cfg.lua || die "sed feedback-daemon 3"
+			-i src/box/lua/load_cfg.lua
+		[ "$(grep "${comment}" src/box/lua/load_cfg.lua | wc -l)" = 9 ] || \
+			die "sed out feedback-daemon from src/box/lua/load_cfg.lua"
+
 		echo 'box.feedback = nil' >> src/box/lua/schema.lua \
 			|| die "echo box.feedback"
 		rm src/box/lua/feedback_daemon.lua || die "rm feedback_daemon.lua"
@@ -131,12 +136,19 @@ src_prepare() {
 	# datadir (/var/lib/tarantool) and logdir (/var/log/tarantool). So we need
 	# to set it manually in tarantoolctl configuration file.
 	sed -e "s#@TARANTOOL_RUNDIR@#${TARANTOOL_RUNDIR}#g" \
-		-i extra/dist/default/tarantool.in || die "patch rundir"
+		-i extra/dist/default/tarantool.in
+	grep "${TARANTOOL_RUNDIR}" extra/dist/default/tarantool.in || \
+		die "patch rundir"
 
 	echo "d ${TARANTOOL_RUNDIR} 0750 ${TARANTOOL_USER} ${TARANTOOL_GROUP} -" > \
 		extra/dist/tarantool.tmpfiles.conf || die "create tmpfiles conf"
 
-	default
+	# Necessary for building with glibc-2.34.
+	#
+	# https://github.com/tarantool/tarantool/issues/6686
+	eapply "${FILESDIR}/gh-6686-fix-build-with-glibc-2-34.patch"
+
+	cmake-utils_src_prepare
 }
 
 src_configure() {
@@ -159,8 +171,15 @@ src_configure() {
 		-DENABLE_BUNDLED_LIBCURL=$(usex system-libcurl OFF ON)
 		-DENABLE_BUNDLED_LIBYAML=$(usex system-libyaml OFF ON)
 		-DENABLE_BUNDLED_ZSTD="$(usex system-zstd OFF ON)"
+		-DENABLE_FEEDBACK_DAEMON="$(usex feedback-daemon)"
 	)
 	cmake-utils_src_configure
+}
+
+src_test() {
+	pushd "${BUILD_DIR}" > /dev/null || die
+	emake test
+	popd > /dev/null || die
 }
 
 src_install() {
@@ -177,13 +196,16 @@ src_install() {
 
 	# Data directory
 	keepdir /var/lib/tarantool
-	fowners "${TARANTOOL_USER}:${TARANTOOL_GROUP}" /var/log/tarantool
 
 	# Lua scrips
 	keepdir /usr/share/tarantool
 
 	# Init script
 	newinitd "${FILESDIR}/tarantool.initd" tarantool
+
+	# Log directory
+	keepdir /var/log/tarantool
+	fowners "${TARANTOOL_USER}:${TARANTOOL_GROUP}" /var/log/tarantool
 }
 
 pkg_postinst() {
