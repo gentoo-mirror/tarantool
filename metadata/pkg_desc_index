@@ -14,4 +14,3 @@ dev-lua/pg 2.0.2 9999: PostgreSQL connector for Tarantool
 dev-lua/queue 1.0.6 1.0.8 1.1.0 9999: Create task queues, add and take jobs, monitor failed tasks
 dev-lua/shard 1.2 2.0 2.1 9999: Automatic sharding and resharding
 dev-lua/smtp 9999: SMTP support for Tarantool
-www-servers/nginx 1.17.8: Robust, small and high performance http and reverse proxy server
