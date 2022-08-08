@@ -4,7 +4,6 @@ dev-libs/tarantool-c 9999:
 dev-lua/argon2 9999: Tarantool C binding for the Argon2 password hashing algorithm
 dev-lua/avro-schema 2.0 2.2.3 2.3.0 2.3.1 2.3.2 3.0.0 3.0.3 3.0.4 9999: Apache Avro schema tools for Tarantool
 dev-lua/checks 3.0.1 9999: Easy, terse, readable and fast function arguments type checking
-dev-lua/connpool 1.1 9999: Lua connection pool for tarantool net.box
 dev-lua/expirationd 1.0 9999: Expiration daemon module for Tarantool
 dev-lua/gperftools 1.0.1 9999: Lua bindings for Google Performance Tools CPU Profiler
 dev-lua/http 9999: HTTP server for Tarantool
@@ -12,5 +11,4 @@ dev-lua/luatest 9999: Tarantool test framework written in Lua
 dev-lua/mysql 9999: MySQL connector for Tarantool
 dev-lua/pg 2.0.2 9999: PostgreSQL connector for Tarantool
 dev-lua/queue 1.0.6 1.0.8 1.1.0 9999: Create task queues, add and take jobs, monitor failed tasks
-dev-lua/shard 1.2 2.0 2.1 9999: Automatic sharding and resharding
 dev-lua/smtp 9999: SMTP support for Tarantool
