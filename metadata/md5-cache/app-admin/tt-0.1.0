@@ -9,5 +9,5 @@ LICENSE=BSD-2 MIT Apache-2.0 BSD MPL-2.0 LGPL-3
 RESTRICT=strip
 SLOT=0
 SRC_URI=https://github.com/tarantool/tt/releases/download/0.1.0/tt-0.1.0-complete.tar.gz https://github.com/tarantool/tt/releases/download/0.1.0/tt-0.1.0-deps.tar.xz
-_eclasses_=go-module	15312495dc4fd84f8c37bbe228ea2abd
+_eclasses_=go-module	4c4b34f361efda91762ffeda8f632c02
 _md5_=086a7b60ce3e1871473612062ebfa230
