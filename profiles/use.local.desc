@@ -4,5 +4,9 @@
 
 dev-db/tarantool:backtrace - Support for detail backtraces
 dev-db/tarantool:embed-luarocks - Embed LuaRocks into tarantool binary
+dev-db/tarantool:feedback-daemon - Build with feedback daemon which reports debug data to the Tarantool team
 dev-db/tarantool:gcov - Build with coverage support
 dev-db/tarantool:gprof - Build with profiling support
+dev-db/tarantool:system-libcurl - Build using system libcurl
+dev-db/tarantool:system-libyaml - Build using system libyaml
+dev-db/tarantool:system-zstd - Build using system zstd
