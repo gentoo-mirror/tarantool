@@ -3,5 +3,6 @@
 # * generated automatically using pmaint *
 
 dev-db/tarantool:backtrace - Support for detail backtraces
+dev-db/tarantool:embed-luarocks - Embed LuaRocks into tarantool binary
 dev-db/tarantool:gcov - Build with coverage support
 dev-db/tarantool:gprof - Build with profiling support
