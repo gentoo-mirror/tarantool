@@ -1,0 +1,13 @@
+BDEPEND=>=dev-lang/go-1.18 dev-util/mage >=dev-lang/go-1.18 app-arch/unzip
+DEFINED_PHASES=compile install test unpack
+DESCRIPTION=Command-line utility to manage Tarantool applications
+EAPI=8
+HOMEPAGE=https://github.com/tarantool/tt
+INHERIT=go-module bash-completion-r1
+KEYWORDS=~amd64
+LICENSE=BSD-2 MIT Apache-2.0 BSD MPL-2.0
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://github.com/tarantool/tt/releases/download/v2.0.0/tt-2.0.0-complete.tar.gz https://github.com/tarantool/tt/releases/download/v2.0.0/tt-2.0.0-deps.tar.xz
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	eed10cf5e5a06916e654d31f5a1925cc	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-module	8624eede24936fd7666e5298e5332f22	bash-completion-r1	f5e7a020fd9c741740756aac61bf75ff
+_md5_=5000dddc26af6eae1f50da009d98d437
