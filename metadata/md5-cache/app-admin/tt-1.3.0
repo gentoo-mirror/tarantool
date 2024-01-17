@@ -1,4 +1,4 @@
-BDEPEND=>=dev-lang/go-1.18 dev-util/mage >=dev-lang/go-1.20:= app-arch/unzip
+BDEPEND=>=dev-lang/go-1.18 dev-build/mage >=dev-lang/go-1.20:= app-arch/unzip
 DEFINED_PHASES=compile install test unpack
 DESCRIPTION=Command-line utility to manage Tarantool applications
 EAPI=8
@@ -10,4 +10,4 @@ RESTRICT=mirror strip
 SLOT=0
 SRC_URI=https://github.com/tarantool/tt/releases/download/v1.3.0/tt-1.3.0-complete.tar.gz https://github.com/tarantool/tt/releases/download/v1.3.0/tt-1.3.0-deps.tar.xz
 _eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	go-env	96e1747610bbb2f5c5d3fb16f0f3a83a	go-module	09ccb1fdea4f1f3f718e27b756636097	bash-completion-r1	f5e7a020fd9c741740756aac61bf75ff
-_md5_=79d3641e4755acbc1941bb50bd34417d
+_md5_=05030256b8ad9916cbdf896a21e848e0
